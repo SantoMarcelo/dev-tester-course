@@ -8,19 +8,22 @@ Dado("este contato possui os seguintes dados:") do |table|
 end
 
 Quando("faço o cadastro deste novo contato") do                                
-  visit 'http://127.0.0.1:8080/form-novo.html'  
-  find('input[placeholder="Nome Completo"]').set(@nome)
+  visit 'http://127.0.0.1:3000'  
+  find('input[placeholder="Nome completo"]').set(@nome)
   find('input[placeholder="Email"]').set(@contato[:email])
   find('input[placeholder="Celular"]').set(@contato[:celular])
   #find('select[]')
   
-  
-  tipo_contato = find('#tipo')
-  tipo_contato.find('option', text: @contato[:tipo]).select_option
+  if @contato[:tipo] != ""
+    tipo_contato = find('#tipo')
+    tipo_contato.find('option', text: @contato[:tipo]).select_option
+  end
   click_on 'Cadastrar'
  
 end                                                                            
                                                                                  
-Então("devo ver a seguinte mensagem de sucesso {string}") do |mensagem|          
- expect(page).to have_content mensagem
+Então("devo ver a seguinte mensagem de sucesso {string}") do |mensagem|  
+  sleep 2        
+ msg = page.driver.browser.switch_to.alert.text
+ expect(msg).to eql mensagem
 end                                                                            
