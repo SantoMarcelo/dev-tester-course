@@ -1,0 +1,87 @@
+<head>
+  <title>DevTester App</title>
+</head>
+
+<body>
+  {{> sAlert}}
+  {{> navbar}}
+  <div id="paginaPrincipal" class="container">
+    {{ >listaContato}}
+    {{ >novoContato}}
+  </div>
+</body>
+
+
+<template name="navbar">
+  <div class="container">
+    <nav class="navbar bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">DevTester</a>
+    </nav>
+  </div>
+</template>
+
+<template name="novoContato">
+
+  <h4><i class="fa fa-save"></i> Novo Contato</h4>
+
+  <form name="formNovoContato">
+
+    <div class="form-group">
+      <input name="nome" id="nome" class="form-control" type="text" placeholder="Nome completo">
+    </div>
+
+    <div class="form-group">
+      <input name="email" id="react_child_input__div_x_01_form_txtEmail_0_ntc_001" class="form-control" type="text"
+        placeholder="Email">
+    </div>
+
+    <div class="form-group">
+      <input name="celular" id="celular" class="form-control" type="text" data-test="celular" placeholder="Celular">
+    </div>
+
+    <div class="form-group">
+      <select name="tipo" id="tipo" class="form-control">
+        <option value="" disabled selected>Selecione</option>
+        <option value="Whats">Whats</option>
+        <option value="Telegram">Telegram</option>
+        <option value="SMS">SMS</option>
+      </select>
+      <small class="form-text text-muted">Você deve selecionar pelo menos um tipo de contato.</small>
+    </div>
+
+    <input id="salvarContato" type="submit" class="btn btn-success" value="Cadastrar">
+  </form>
+
+</template>
+
+<template name="listaContato">
+
+  <h4><i class="fa fa-address-book"></i> Meus Contatos</h4>
+
+  {{#if minhaLista}}
+  <table class="table">
+    <thead>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Celular</th>
+      <th>Tipo de Contato</th>
+    </thead>
+    <tbody>
+      {{#each minhaLista}}
+      <tr>
+        <td>{{nome}}</td>
+        <td>{{email}}</td>
+        <td>{{celular}}</td>
+        <i ></i>
+        <td class="fa {{retornaIcone tipo}}">{{tipo}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <div class="alert alert-info" role="alert">
+    <p>voce ainda nao possui contatos cadastrados.</p>
+  </div>
+  {{/if}}
+
+</template>
